@@ -36,7 +36,7 @@ Contributions are always welcome. If you're interested in contributing, send me 
 License
 -------
 
-Go template is Copyright (c) 2020 Christian Hering. Please refer to the [license](/LICENSE) file.
+Feel free to use this project in any way you like, so long as it's open source. Please refer to the [license](/LICENSE) file for more information.
 
 About
 -----
