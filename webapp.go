@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net"
 	"net/http"
@@ -29,13 +30,13 @@ func runWebapp() (address string) {
 
 	listen, err := net.Listen("tcp", "127.0.0.1:0") //Listening on ":0" will bind to localhost on a random port
 	if err != nil {
-		errors.WithStack(err)
+		panic(fmt.Sprintf("%+v", errors.WithStack(err)))
 	}
 
 	go func() { //Serving the web server
 		err := http.Serve(listen, mux)
 		if err != nil {
-			errors.WithStack(err)
+			panic(fmt.Sprintf("%+v", errors.WithStack(err)))
 		}
 	}()
 
