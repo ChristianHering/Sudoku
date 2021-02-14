@@ -1,7 +1,7 @@
 Sudoku
 ===========
 
-This repository holds a golang implementation of sudoku that could be hosted on a web server.
+This package implements all the functionality to make a sudoku game, board generator, etc.
 
 It provides:
 
