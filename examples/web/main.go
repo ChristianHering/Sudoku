@@ -11,7 +11,7 @@ var gameBoards sudoku.GameBoards
 //In order to build this file directly for the webapp,
 //run the following command in the root of this package:
 //
-//go build -o ./../src/asm/sudoku.wasm ./
+//go build -o ./src/wasm/sudoku.wasm ./
 func main() {
 	newPuzzle()
 

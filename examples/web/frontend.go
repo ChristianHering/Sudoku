@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"syscall/js"
+	"time"
 
 	sudoku "github.com/ChristianHering/Sudoku"
 )
@@ -34,7 +35,7 @@ func checkJS(x js.Value, y []js.Value) interface{} {
 				fmt.Println("The value entered into cell-" + cellIndex + " was not valid.")
 				js.Global().Get("document").Call("getElementById", "cell-"+cellIndex).Set("value", js.ValueOf(nil))
 			} else {
-				if !sudoku.ValidEntry(gameBoards[1], value, sudoku.Position{X: field.X, Y: field.Y}) {
+				if !gameBoards[1].ValidEntry(value, sudoku.Position{X: field.X, Y: field.Y}) {
 					js.Global().Get("document").Call("getElementById", "cell-"+cellIndex).Set("value", js.ValueOf(nil))
 				}
 			}
@@ -57,15 +58,23 @@ func solveJS(x js.Value, y []js.Value) interface{} {
 		}
 	}
 
-	moves := sudoku.SolveSodoku(nil)
+	var moves []sudoku.PositionValue
 
-	for i := 0; i < len(moves); i++ {
-		if moves[i].Value != 0 {
-			js.Global().Get("document").Call("getElementById", "cell-"+strconv.Itoa((moves[i].Pos.Y*8)+moves[i].Pos.X)).Set("value", js.ValueOf(strconv.Itoa(moves[i].Value)))
+	_, _ = gameBoards[1].SolveSudoku(&moves)
+	fmt.Println(moves)
+	go func() {
+		for i := 0; i < len(moves); i++ {
+			move := moves[i]
+			fmt.Println(move)
+			if move.Value != 0 {
+				js.Global().Get("document").Call("getElementById", "cell-"+(strconv.Itoa((move.Pos.X*9)+move.Pos.Y))).Set("value", js.ValueOf(move.Value))
+			} else {
+				js.Global().Get("document").Call("getElementById", "cell-"+(strconv.Itoa((move.Pos.X*9)+move.Pos.Y))).Set("value", js.ValueOf("0"))
+			}
+
+			time.Sleep(100 * time.Millisecond)
 		}
-
-		js.Global().Get("document").Call("getElementById", "cell-"+strconv.Itoa(i)).Set("value", js.ValueOf("0"))
-	}
+	}()
 
 	return nil
 }
@@ -79,9 +88,9 @@ func newJS(x js.Value, y []js.Value) interface{} {
 
 //Generates and displays a new board
 func newPuzzle() {
-	sudokuBoards := sudoku.NewGame()
+	gameBoards = sudoku.NewGame()
 
-	sudokuBoards.GenerateSudoku(9, 50)
+	gameBoards.GenerateSudoku(9, 50)
 
 	outputGameBoard()
 }

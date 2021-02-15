@@ -124,7 +124,7 @@ func (board *Board) SolveSudoku(solutionPath *[]PositionValue) (*[]PositionValue
 		}
 	}
 
-	return nil, false
+	return solutionPath, false
 }
 
 //ValidEntry checks if "value" is a valid entry for the
