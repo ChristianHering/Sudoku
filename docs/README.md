@@ -6,9 +6,11 @@ This package implements all the functionality to make a sudoku game, board gener
 It provides:
 
   * Automated (valid) puzzle generation
-  * A basic value hint function that lets you make sure an entry isn't invalid
-  * An automated solving function that displays changes as it bruteforces the puzzle
-  * An example of how one could package a game for the web without using flash
+  * A backtracking algorithm for animating the solving of the sudoku puzzles
+  * A simple function to check if a given value is valid at a given position in a board
+  * An example of how one could package a game for the web without using flash:
+
+![Example Output](/docs/sudoku.gif)
 
 Table of Contents:
 
@@ -28,6 +30,19 @@ If you're looking to compile from source, you'll need the following:
   * [Go](https://golang.org) installed and [configured](https://golang.org/doc/install)
   * [Lorca](https://github.com/zserge/lorca) installed properly
 
+Run the following commands to build the web assembly binary:
+
+  * `set GOOS=js`
+  * `set GOARCH=wasm`
+  * `go build -o ./examples/web/src/wasm/sudoku.wasm ./examples/web/`
+
+Or run the following to build/run a local webview game using the default wasm file:
+
+  * `cd ./examples/application/`
+  * `go run ./`
+
+Make sure you set your GOOS and GOARCH back to defaults if you're compiling both.
+
 Contributing
 ------------
 
@@ -36,7 +51,7 @@ Contributions are always welcome. If you're interested in contributing, send me 
 License
 -------
 
-Feel free to use this project in any way you like, so long as it's open source. Please refer to the [license](/LICENSE) file for more information.
+Feel free to use this project in any way you like, so long as it's open source. Please refer to the [license](/docs/LICENSE) file for more information.
 
 About
 -----

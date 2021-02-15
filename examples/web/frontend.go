@@ -61,11 +61,11 @@ func solveJS(x js.Value, y []js.Value) interface{} {
 	var moves []sudoku.PositionValue
 
 	_, _ = gameBoards[1].SolveSudoku(&moves)
-	fmt.Println(moves)
+
 	go func() {
 		for i := 0; i < len(moves); i++ {
 			move := moves[i]
-			fmt.Println(move)
+
 			if move.Value != 0 {
 				js.Global().Get("document").Call("getElementById", "cell-"+(strconv.Itoa((move.Pos.X*9)+move.Pos.Y))).Set("value", js.ValueOf(move.Value))
 			} else {

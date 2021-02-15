@@ -10,7 +10,7 @@ import (
 func main() {
 	address := runWebapp()
 
-	ui, err := lorca.New(address, "", 490, 525)
+	ui, err := lorca.New(address, "", 500, 540)
 	if err != nil {
 		panic(fmt.Sprintf("%+v", errors.WithStack(err)))
 	}
